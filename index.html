@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ninety-Two Grounds</title>
+<meta name="description" content="How many of the 92 Premier League and EFL grounds can you name from memory? Type them in against the clock and watch them appear on the map.">
+<meta property="og:title" content="Ninety-Two Grounds">
+<meta property="og:description" content="Name every Premier League and EFL ground from memory, against the clock.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/modules/game.css">
+<link rel="stylesheet" href="css/modules/how-to-play.css">
+<link rel="stylesheet" href="css/modules/site-footer.css">
+</head>
+<body>
+<div class="wrapper">
+<header class="site-header">
+<div class="site-header-inner container">
+<a class="site-header-logo" href="./">Ninety-Two <strong>Grounds</strong></a>
+<nav class="site-nav">
+<ul class="site-nav-list">
+<li class="site-nav-item"><a class="site-nav-link" href="#play">Play</a></li>
+<li class="site-nav-item"><a class="site-nav-link" href="#how-to-play">How to play</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<article class="page-content">
+<div class="intro container">
+<h1 class="intro-title">Name all 92 grounds</h1>
+<p class="intro-text">Every Premier League and EFL ground for the 2026/27 season. Type them from memory, beat the clock, and watch them pin themselves to the map.</p>
+</div>
+<div class="game container" id="play" data-grounds="data/grounds.json" data-outline="data/outline.json">
+<div class="game-toolbar">
+<div class="game-modes" role="group" aria-label="What to name">
+<button class="game-mode is-active" type="button" data-mode="grounds" aria-pressed="true">Grounds</button>
+<button class="game-mode" type="button" data-mode="clubs" aria-pressed="false">Clubs</button>
+</div>
+<form class="game-form" autocomplete="off">
+<label class="game-label" for="game-guess">Your guess</label>
+<input class="game-input" id="game-guess" type="text" placeholder="Type a ground, press Enter" spellcheck="false" autocapitalize="off">
+</form>
+<div class="game-stats">
+<div class="game-stat"><span class="game-stat-label">Named</span> <span class="game-stat-value"><span class="game-count">0</span>/92</span></div>
+<div class="game-stat"><span class="game-stat-label">Time</span> <span class="game-stat-value game-timer">0:00</span></div>
+<button class="game-pause btn btn-small" type="button" disabled>Pause</button>
+</div>
+<p class="game-message" aria-live="polite">The clock starts when you type your first letter. Old and sponsor names count.</p>
+</div>
+<div class="game-board">
+<div class="game-map">
+<svg class="game-map-svg" aria-label="Map of England and Wales showing the grounds you have named"><g class="game-map-world"><g class="game-map-land"></g><g class="game-map-dots"></g><g class="game-map-labels"></g></g></svg>
+<div class="game-regions"></div>
+<div class="game-zoom"><button class="game-zoom-button" type="button" data-zoom="in" aria-label="Zoom in">+</button><button class="game-zoom-button" type="button" data-zoom="out" aria-label="Zoom out">&minus;</button></div>
+<div class="game-paused"><div class="game-paused-title">Paused</div><button class="game-resume btn" type="button">Resume</button></div>
+<div class="game-tooltip"></div>
+</div>
+<div class="game-ledger">
+<div class="game-leagues"></div>
+<div class="game-controls">
+<label class="game-ghosts"><input class="game-ghosts-input" type="checkbox"> Show empty rings for every ground (easier)</label>
+<button class="game-giveup btn btn-outline" type="button">Give up and reveal</button>
+<button class="game-reset btn btn-outline" type="button">Start again</button>
+<p class="game-best">Best time: <span class="game-best-value">none yet</span></p>
+</div>
+</div>
+</div>
+</div>
+<div class="how-to-play container" id="how-to-play">
+<h2 class="how-to-play-title">How to play</h2>
+<div class="how-to-play-grid">
+<div class="how-to-play-card">
+<h3 class="how-to-play-card-title">Type and press Enter</h3>
+<p>Type a ground and it drops onto the map in its league colour. If nothing else could match what you've typed, it's accepted before you press Enter. Small typos are forgiven when you press Enter.</p>
+</div>
+<div class="how-to-play-card">
+<h3 class="how-to-play-card-title">Old names count</h3>
+<p>Former names and sponsor names count as well as the current one. In Clubs mode, common nicknames and short forms count too.</p>
+</div>
+<div class="how-to-play-card">
+<h3 class="how-to-play-card-title">Beat the clock</h3>
+<p>The timer starts with your first keystroke and stops when you reach 92 or give up. Pause hides the map so nobody can peek. Your best time is saved for each mode.</p>
+</div>
+<div class="how-to-play-card">
+<h3 class="how-to-play-card-title">Shared names</h3>
+<p>A few names belong to more than one ground. Each entry places only one of them, so type the name again for each ground that shares it.</p>
+</div>
+</div>
+<div class="how-to-play-leagues">
+<span class="league-key league-key-pl">Premier League (20)</span> <span class="league-key league-key-ch">Championship (24)</span> <span class="league-key league-key-l1">League One (24)</span> <span class="league-key league-key-l2">League Two (24)</span>
+</div>
+</div>
+</article>
+<footer class="site-footer">
+<div class="site-footer-inner container">
+<p class="site-footer-text">Ground locations from OpenStreetMap. Map outline from Natural Earth. Leagues as of the 2026/27 season.</p>
+</div>
+</footer>
+</div>
+<script src="js/functions.js" defer></script>
+</body>
+</html>

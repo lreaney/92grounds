@@ -1,0 +1,19 @@
+.how-to-play { margin-top: 0; margin-bottom: 48px; }
+.how-to-play .how-to-play-title, .how-to-play h2 { margin-bottom: 20px; }
+.how-to-play .how-to-play-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-bottom: 20px; }
+.how-to-play .how-to-play-card { padding: 18px 20px; border: 1px solid #dbe3e6; border-radius: 10px; background: #ffffff; }
+.how-to-play .how-to-play-card p { margin: 0; color: #4a5d66; font-size: 15px; line-height: 23px; }
+.how-to-play .how-to-play-card-title, .how-to-play h3, .how-to-play h4 { margin-bottom: 8px; font-size: 17px; }
+.how-to-play .how-to-play-leagues { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 14px; font-weight: 600; }
+.how-to-play .league-key { display: inline-flex; align-items: center; gap: 8px; }
+.how-to-play .league-key::before { content: ""; width: 12px; height: 12px; border-radius: 50%; }
+.how-to-play .league-key-pl::before { background: #6a2c91; }
+.how-to-play .league-key-ch::before { background: #1d65a8; }
+.how-to-play .league-key-l1::before { background: #c46a07; }
+.how-to-play .league-key-l2::before { background: #23865a; }
+@media (min-width: 768px) {
+  .how-to-play .how-to-play-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 1200px) {
+  .how-to-play .how-to-play-grid { grid-template-columns: repeat(4, 1fr); }
+}

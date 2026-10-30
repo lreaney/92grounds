@@ -1,0 +1,3 @@
+.site-footer { padding-top: 24px; padding-bottom: 24px; background: #14232b; color: #9fb2ba; }
+.site-footer .site-footer-inner { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.site-footer .site-footer-text { margin: 0; font-size: 13px; line-height: 20px; }
