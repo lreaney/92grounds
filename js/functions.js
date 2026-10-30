@@ -138,7 +138,8 @@
       reset: r.querySelector('.game-reset'),
       best: r.querySelector('.game-best-value'),
       modes: r.querySelectorAll('.game-mode'),
-      zoom: r.querySelectorAll('.game-zoom-button')
+      zoom: r.querySelectorAll('.game-zoom-button'),
+      share: r.querySelector('.share-buttons')
     };
   };
 
@@ -207,6 +208,7 @@
       this.el.pause.disabled = finished || (!this.startedAt && !this.paused);
       this.el.pause.textContent = this.paused ? 'Resume' : 'Pause';
     }
+    this.renderShare();
   };
 
   Game.prototype.renderPaused = function() {
@@ -283,6 +285,7 @@
     this.el.message.textContent = 'All 92 in ' + formatTime(time) + (isBest ? '. That\'s a new best.' : '. Your best is ' + formatTime(cur.best) + '.');
     this.el.input.disabled = true;
     this.renderTimer();
+    this.renderShare();
   };
 
   Game.prototype.giveUp = function() {
@@ -339,6 +342,7 @@
     var mode = this.state.mode;
     var grounds = this.grounds;
     if (this.el.count) this.el.count.textContent = cur.found.length;
+    this.renderShare();
     if (this.el.giveUp) this.el.giveUp.disabled = this.isFinished();
     if (!this.el.leagues) return;
     this.el.leagues.innerHTML = LEAGUES.map(function(league) {
@@ -496,6 +500,85 @@
     tip.classList.add('is-visible');
   };
 
+  // ---- sharing ----
+
+  Game.prototype.shareUrl = function() {
+    return this.root.getAttribute('data-share-url') || (location.origin + location.pathname);
+  };
+
+  Game.prototype.shareText = function() {
+    var cur = this.current();
+    var noun = this.state.mode === 'grounds' ? 'grounds' : 'clubs';
+    var total = this.grounds.length;
+    if (!cur.found.length) return 'How many of the ' + total + ' Premier League and EFL ' + noun + ' can you name from memory?';
+    var time = formatTime(this.elapsed());
+    if (cur.found.length === total) return 'I named all ' + total + ' Premier League and EFL ' + noun + ' from memory in ' + time + '. Can you beat that?';
+    return 'I named ' + cur.found.length + ' of the ' + total + ' Premier League and EFL ' + noun + ' from memory in ' + time + '. Can you beat that?';
+  };
+
+  Game.prototype.renderShare = function() {
+    var box = this.el.share;
+    if (!box) return;
+    var text = this.shareText();
+    var url = this.shareUrl();
+    var links = {
+      '.share-button-x': 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(url),
+      '.share-button-facebook': 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(url),
+      '.share-button-whatsapp': 'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url)
+    };
+    Object.keys(links).forEach(function(sel) {
+      var a = box.querySelector(sel);
+      if (a) a.setAttribute('href', links[sel]);
+    });
+    var preview = box.querySelector('.share-buttons-preview');
+    if (preview) preview.textContent = text;
+  };
+
+  Game.prototype.copyShare = function(btn) {
+    var value = this.shareText() + ' ' + this.shareUrl();
+    var label = btn.querySelector('.share-button-copy-text') || btn;
+    function done(ok) {
+      label.textContent = ok ? 'Copied' : 'Press Ctrl+C to copy';
+      btn.classList.toggle('is-copied', ok);
+      setTimeout(function() { label.textContent = 'Copy link'; btn.classList.remove('is-copied'); }, 2000);
+    }
+    function fallback() {
+      var area = document.createElement('textarea');
+      area.value = value;
+      area.setAttribute('readonly', '');
+      area.style.position = 'fixed';
+      area.style.top = '-200px';
+      document.body.appendChild(area);
+      area.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      document.body.removeChild(area);
+      done(ok);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(function() { done(true); }, fallback);
+    } else {
+      fallback();
+    }
+  };
+
+  Game.prototype.bindShareEvents = function() {
+    var self = this;
+    var box = this.el.share;
+    if (!box) return;
+    var native = box.querySelector('.share-button-native');
+    var copy = box.querySelector('.share-button-copy');
+    if (native && navigator.share) {
+      native.classList.add('is-available');
+      native.addEventListener('click', function() {
+        navigator.share({ title: document.title, text: self.shareText(), url: self.shareUrl() }).catch(function() {});
+      });
+    }
+    if (copy) {
+      copy.addEventListener('click', function() { self.copyShare(copy); });
+    }
+  };
+
   // ---- events ----
 
   Game.prototype.bindEvents = function() {
@@ -532,6 +615,7 @@
       });
     });
     this.bindMapEvents();
+    this.bindShareEvents();
     document.addEventListener('visibilitychange', function() {
       if (document.visibilityState === 'hidden' && self.startedAt) {
         self.current().elapsed = self.elapsed();

@@ -1,0 +1,16 @@
+.share-buttons { flex-basis: 100%; margin-top: 8px; margin-bottom: 0; padding-top: 14px; border-top: 1px solid #dbe3e6; }
+.share-buttons .share-buttons-title, .share-buttons h2, .share-buttons h3, .share-buttons h4 { margin: 0 0 10px; font-size: 13px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+.share-buttons .share-buttons-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.share-buttons .share-button { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 6px 12px; border: 0; border-radius: 6px; background: #14232b; color: #ffffff; font: inherit; font-size: 13px; font-weight: 700; line-height: 18px; text-decoration: none; cursor: pointer; transition: opacity 0.15s ease; }
+.share-buttons .share-button:hover { color: #ffffff; opacity: 0.85; }
+.share-buttons .share-button-native { display: none; background: #23865a; }
+.share-buttons .share-button-native.is-available { display: inline-flex; }
+.share-buttons .share-button-x { background: #000000; }
+.share-buttons .share-button-facebook { background: #1877f2; }
+.share-buttons .share-button-whatsapp { background: #1c8a4c; }
+.share-buttons .share-button-copy { border: 2px solid #c5d2d7; background: transparent; color: #14232b; }
+.share-buttons .share-button-copy:hover { color: #14232b; background: #f1f5f6; opacity: 1; }
+.share-buttons .share-button-copy.is-copied { border-color: #23865a; color: #23865a; }
+.share-buttons .share-icon-share { width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.4' stroke-linecap='round'%3E%3Ccircle cx='18' cy='5' r='3'/%3E%3Ccircle cx='6' cy='12' r='3'/%3E%3Ccircle cx='18' cy='19' r='3'/%3E%3Cpath d='M8.6 10.5l6.8-4M8.6 13.5l6.8 4'/%3E%3C/svg%3E"); }
+.share-buttons .share-icon-link { width: 14px; height: 14px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2314232b' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M10 14a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1'/%3E%3Cpath d='M14 10a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1'/%3E%3C/svg%3E"); }
+.share-buttons .share-buttons-preview { margin: 10px 0 0; color: #5d6f78; font-size: 12px; line-height: 18px; }
