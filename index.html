@@ -15,16 +15,6 @@
 <link rel="stylesheet" href="css/modules/share-buttons.css">
 <link rel="stylesheet" href="css/modules/how-to-play.css">
 <link rel="stylesheet" href="css/modules/site-footer.css">
-<!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DF4M19YHM2"></script>
-  <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-DF4M19YHM2');
-  </script>
-
 </head>
 <body>
 <div class="wrapper">
@@ -44,7 +34,7 @@
 <h1 class="intro-title">Name all 92 grounds</h1>
 <p class="intro-text">Every Premier League and EFL ground for the 2026/27 season. Type them from memory, beat the clock, and watch them pin themselves to the map.</p>
 </div>
-<div class="game container" id="play" data-grounds="data/grounds.json" data-outline="data/outline.json">
+<div class="game container" id="play" data-grounds="data/grounds.json" data-outline="data/outline.json" data-stats-url="https://ninety-two-grounds-stats.liamreaney-a3f.workers.dev/log">
 <div class="game-toolbar">
 <div class="game-modes" role="group" aria-label="What to name">
 <button class="game-mode is-active" type="button" data-mode="grounds" aria-pressed="true">Grounds</button>
@@ -118,7 +108,7 @@
 </article>
 <footer class="site-footer">
 <div class="site-footer-inner container">
-<p class="site-footer-text">Ground locations from OpenStreetMap. Map outline from Natural Earth. Leagues as of the 2026/27 season.</p>
+<p class="site-footer-text">Ground locations &copy; <a class="site-footer-link" href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a>. Map outline from Natural Earth. Leagues as of the 2026/27 season. This site uses no cookies. Your progress is saved only in your own browser. When you finish or give up, your time and the grounds you named are sent anonymously so we can see which grounds people remember.</p>
 </div>
 </footer>
 </div>
