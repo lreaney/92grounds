@@ -89,7 +89,7 @@
   }
 
   function emptyMode() {
-    return { found: [], gaveUp: false, elapsed: 0, best: null };
+    return { found: [], gaveUp: false, elapsed: 0, best: null, logged: false };
   }
 
   // ---- game ----
@@ -284,6 +284,7 @@
     if (isBest) cur.best = time;
     this.el.message.textContent = 'All 92 in ' + formatTime(time) + (isBest ? '. That\'s a new best.' : '. Your best is ' + formatTime(cur.best) + '.');
     this.el.input.disabled = true;
+    this.logScore('finished');
     this.renderTimer();
     this.renderShare();
   };
@@ -294,9 +295,33 @@
     this.stopTimer();
     cur.gaveUp = true;
     this.paused = false;
+    this.logScore('gave_up');
     this.save();
     this.el.message.textContent = 'You named ' + cur.found.length + ' of 92 in ' + formatTime(cur.elapsed) + '. The rest are in red.';
     this.renderAll();
+  };
+
+  // anonymous score log: one record per round, only when a stats endpoint is set on the page
+  Game.prototype.logScore = function(status) {
+    var cur = this.current();
+    var url = this.root.getAttribute('data-stats-url');
+    if (cur.logged || !cur.found.length || !url || url === 'PLACEHOLDER') return;
+    cur.logged = true;
+    var grounds = this.grounds;
+    var host = window.location.hostname;
+    var body = JSON.stringify({
+      mode: this.state.mode,
+      status: status,
+      found: cur.found.map(function(i) { return grounds[i].club; }),
+      elapsed_ms: cur.elapsed,
+      ghosts: !!this.state.ghosts,
+      test: host === 'localhost' || host === '127.0.0.1'
+    });
+    var blob = new Blob([body], { type: 'text/plain' });
+    try {
+      if (navigator.sendBeacon && navigator.sendBeacon(url, blob)) return;
+    } catch (e) {}
+    try { fetch(url, { method: 'POST', body: body, keepalive: true, mode: 'no-cors' }); } catch (e) {}
   };
 
   Game.prototype.reset = function() {
